@@ -83,10 +83,10 @@ function(x, n.ahead, K) {
 ## irf (internal)
 ##
 ".irf" <-
-function(x, impulse, response, y.names, n.ahead, ortho, cumulative){
+function(x, impulse, response, y.names, n.ahead, ortho, cumulative, reverse_order){
   if((class(x) == "varest") || (class(x) == "vec2var")){
     if(ortho){
-      irf <- Psi(x, nstep = n.ahead)
+      irf <- Psi(x, nstep = n.ahead, reverse_order = reverse_order)
     } else {
       irf <- Phi(x, nstep = n.ahead)
     }
