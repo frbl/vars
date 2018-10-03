@@ -23,7 +23,7 @@ function(x, nstep=10, reverse_order=FALSE, ...){
   P <- t(chol(sigma.u))
 
   if(reverse_order) {
-    message('Reversing the order')
+    #message('Reversing the order')
     P <- t(P)
   }
 

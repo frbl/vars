@@ -116,7 +116,7 @@ function(x, impulse, response, y.names, n.ahead, ortho, cumulative, reverse_orde
 ## Bootstrapping IRF for VAR and SVAR
 ##
 ".boot" <-
-function(x, n.ahead, runs, ortho, cumulative, impulse, response, ci, seed, y.names){
+function(x, n.ahead, runs, ortho, cumulative, impulse, response, ci, seed, y.names, reverse_order){
   if(!(is.null(seed))) set.seed(abs(as.integer(seed)))
   if(class(x) == "varest"){
     VAR <- eval.parent(x)
@@ -155,7 +155,7 @@ function(x, n.ahead, runs, ortho, cumulative, impulse, response, ci, seed, y.nam
     if(class(x) == "svarest"){
       varboot <- update(x, x = varboot)
     }
-    BOOT[[i]] <- .irf(x = varboot, n.ahead = n.ahead, ortho = ortho, cumulative = cumulative, impulse = impulse, response = response, y.names=y.names)
+    BOOT[[i]] <- .irf(x = varboot, n.ahead = n.ahead, ortho = ortho, cumulative = cumulative, impulse = impulse, response = response, y.names=y.names, reverse_order=reverse_order)
   }
   lower <- ci / 2
   upper <- 1 - ci / 2
