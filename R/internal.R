@@ -83,10 +83,10 @@ function(x, n.ahead, K) {
 ## irf (internal)
 ##
 ".irf" <-
-function(x, impulse, response, y.names, n.ahead, ortho, cumulative, reverse_order){
+function(x, impulse, response, y.names, n.ahead, ortho, cumulative){
   if((class(x) == "varest") || (class(x) == "vec2var")){
     if(ortho){
-      irf <- Psi(x, nstep = n.ahead, reverse_order = reverse_order)
+      irf <- Psi(x, nstep = n.ahead)
     } else {
       irf <- Phi(x, nstep = n.ahead)
     }
@@ -116,7 +116,7 @@ function(x, impulse, response, y.names, n.ahead, ortho, cumulative, reverse_orde
 ## Bootstrapping IRF for VAR and SVAR
 ##
 ".boot" <-
-function(x, n.ahead, runs, ortho, cumulative, impulse, response, ci, seed, y.names, reverse_order){
+function(x, n.ahead, runs, ortho, cumulative, impulse, response, ci, seed, y.names){
   if(!(is.null(seed))) set.seed(abs(as.integer(seed)))
   if(class(x) == "varest"){
     VAR <- eval.parent(x)
@@ -155,7 +155,7 @@ function(x, n.ahead, runs, ortho, cumulative, impulse, response, ci, seed, y.nam
     if(class(x) == "svarest"){
       varboot <- update(x, x = varboot)
     }
-    BOOT[[i]] <- .irf(x = varboot, n.ahead = n.ahead, ortho = ortho, cumulative = cumulative, impulse = impulse, response = response, y.names=y.names, reverse_order=reverse_order)
+    BOOT[[i]] <- .irf(x = varboot, n.ahead = n.ahead, ortho = ortho, cumulative = cumulative, impulse = impulse, response = response, y.names=y.names)
   }
   lower <- ci / 2
   upper <- 1 - ci / 2
